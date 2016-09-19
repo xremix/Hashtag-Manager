@@ -13,9 +13,9 @@ if(isset($_COOKIE["userid"])){
 	}
 }
 if(!$userid){
-	include ('register.html');
+	include ('register.inc.php');
 }else{
-	include ('main.html');
+	include ('main.inc.php');
 }
 
 ?>
