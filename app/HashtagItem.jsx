@@ -53,7 +53,7 @@ var HashtagList = React.createClass({
 		if(this.props.hashtagList && this.props.hashtagList.tags && this.props.hashtagList.tags){
 			for (var i = 0; i < this.props.hashtagList.tags.length; i++) {
 				childs.push(
-					<li key={this.props.hashtagList.tags[i].name} onClick={this.handleClick.bind(this, i)}>{this.props.hashtagList.tags[i].name} <input type="checkbox" checked={this.props.hashtagList.tags[i].checked} /></li>
+					<li key={this.props.hashtagList.tags[i].name} onClick={this.handleClick.bind(this, i)}><input type="checkbox" checked={this.props.hashtagList.tags[i].checked} /> {this.props.hashtagList.tags[i].name}</li>
 				);
 			}
 		}
@@ -99,36 +99,15 @@ var HashtagControl = React.createClass({
 	getInitialState: function() {
 		var _this = this;
 	    return {
-	    	lists: [
-	    	// {
-	    	// 	key: 1,
-	    	// 	name:'Bayern',
-	    	// 	tags: [{name: '#visitbavaria', checked:false}, {name: '#deinbayern', checked:false}, {name: '#antennebayern', checked:false}]
-	    	// }, {
-	    	// 	key: 2,
-	    	// 	name:'München',
-	    	// 	tags: [{name: '#munich', checked:false}, {name: '#muenchen', checked:false}, {name: '#089', checked:false}, {name: '#muenchenstagram', checked:false}, {name: '#visit_munich', checked:false}]
-	    	// }
-	    	]
+	    	lists: []
 	    };
 	 },
 	 componentDidMount: function() {
 	 	var self = this;
 	 	this.serverRequest = $.ajax({
-	 		url: '/api',
+	 		url: 'api',
 	 		success:function (result) {
 	 			result = JSON.parse(result);
-	 			// var lists = [
-	 			// {
-	 			// 	key: 1,
-	 			// 	name:'Bayern',
-	 			// 	tags: [{name: '#visitbavaria', checked:false}, {name: '#deinbayern', checked:false}, {name: '#antennebayern', checked:false}]
-	 			// }, {
-	 			// 	key: 2,
-	 			// 	name:'München',
-	 			// 	tags: [{name: '#munich', checked:false}, {name: '#muenchen', checked:false}, {name: '#089', checked:false}, {name: '#muenchenstagram', checked:false}, {name: '#visit_munich', checked:false}]
-	 			// }
-	 			// ]
 	 			self.setState({lists: result});
 	 		}.bind(this)
 	 	});
@@ -142,13 +121,12 @@ var HashtagControl = React.createClass({
 		this.setState({date: new Date()});
 	},
 	handleSyncClick: function(e){
-		$.ajax({
-			type: "POST",
-			url: '/api',
-			data: 12312312 + ':::' +JSON.stringify(this.state.lists),
-			success: function(){
-				console.log('Success');
-			}
+		$.post("api/index.php",
+		{
+			hashtaglists: JSON.stringify(this.state.lists)
+		},
+		function(data, status){
+			// alert("Success");
 		});
 	},
 	render: function() {
