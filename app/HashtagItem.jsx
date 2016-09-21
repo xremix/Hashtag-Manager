@@ -88,7 +88,7 @@ var ListControl = React.createClass({
 	getList: function(){
 		var rows = [];
 		for (var i = 0; i < this.props.lists.length; i++) {
-			rows.push(<li key={this.props.lists[i].key} onClick={this.handleClick.bind(this, i)}>{this.props.lists[i].name} <i className="fa fa-chevron-right" style={{float: 'right', color:'#c0c0c0'}} aria-hidden="true"></i></li>);
+			rows.push(<li key={this.props.lists[i].key} onClick={this.handleClick.bind(this, i)}>{this.props.lists[i].name} <i className="fa fa-chevron-right hm-chevron" style={{float: 'right'}} aria-hidden="true"></i></li>);
 		};
 		return rows;
 	},

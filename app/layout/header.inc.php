@@ -12,6 +12,9 @@
 		.result-container textarea{
 			width:100%;
 		}
+		.result-container .col-xs-6{
+			padding:0px;
+		}
 		.container ul{
 			list-style-type: none;
 			padding:0px;
@@ -25,11 +28,23 @@
 		.container li{
 			cursor:pointer;
 			line-height: 1.4em;
+			font-size:16px;
 			background: #fcf7e4;
 			border-radius:7px;
 			margin:10px;
-			padding: 10px;
+			padding: 20px;
 			max-width: 200px;
+		}
+		.hm-chevron{
+			/*color:'#c0c0c0'*/
+			margin-top:-5px;
+			background-color: #ddd;
+			color:white;
+			padding-top:7px;
+			text-align: center;
+			width:28px;
+			height:28px;
+			border-radius: 50%;
 		}
 	</style>
 
@@ -54,7 +69,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="./">#HashtagManager</a>
+      <a class="navbar-brand" href="./">#HashtagManager [Beta]</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

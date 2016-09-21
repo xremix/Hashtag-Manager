@@ -1,7 +1,7 @@
 # #HashtagManager
 Your platform to organize your most used Hashtags
 
-### Give it a try
+### Try the current Beta
 http://hashtag-demo.xremix.de
 
 
