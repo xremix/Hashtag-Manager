@@ -12,10 +12,20 @@ if(isset($_COOKIE["userid"])){
 		setcookie("userid", $userid);
 	}
 }
-if(!$userid){
+
+$GLOBALS["loggedIn"] = !!$userid;
+
+include('layout/header.inc.php');
+if(!$GLOBALS["loggedIn"]){
 	include ('register.inc.php');
 }else{
-	include ('main.inc.php');
+	if(isset($_GET["site"]) && $_GET["site"] == "about"){
+		include ('about.inc.php');
+	}else{
+		include ('main.inc.php');	
+	}
+	
 }
+include('layout/footer.inc.php');
 
 ?>

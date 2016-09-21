@@ -1,7 +1,11 @@
 
 var ResultControl = React.createClass({
 	getTags: function(){
-		var _tags = this.props.lists.map(function(l){ return l.tags.map(function(t){ return t.checked ?  t.name : undefined }) });
+		var _tags = this.props.lists.map(function(l){ 
+			return l.tags.map(function(t){ 
+				return t.checked ?  t.name : undefined 
+			})
+		});
 		_tags = [].concat.apply([], _tags);
 		_tags = _tags.filter(function(t){return t != undefined});
 		return _tags;
@@ -35,7 +39,6 @@ var HashtagList = React.createClass({
 	checkAll: function(){
 		console.log(this.props.hashtagList);
 		this.props.hashtagList.tags = this.props.hashtagList.tags.map(function(t){
-			console.log(t);
 			t.checked = true;
 			return t;
 		});
@@ -43,10 +46,13 @@ var HashtagList = React.createClass({
 	},
 	addNew: function(e){
 		this.props.hashtagList.tags.push({
-			checked: true,
-			name: '#yo',
+			checked: false,
+			name: this.state.listNewInput,
 		});
 		this.props.onUpdate();
+	},
+	handleInputChange: function(event){
+		this.setState({listNewInput: event.target.value});
 	},
 	render: function(){
 		var childs = [];
@@ -57,7 +63,15 @@ var HashtagList = React.createClass({
 				);
 			}
 		}
-		var addNewButton = childs.length ? <li><input type="text" defaultValue="#" className="form-control" /><a onClick={this.addNew} className="btn btn-default">Add</a></li> : null;
+		// var addNewButton = this.props.hashtagList !== null ? <li><input type="text" defaultValue="#" className="form-control" onChange={this.handleInputChange} /><a onClick={this.addNew} className="btn btn-default">Add</a></li> : null;
+		var addNewButton = this.props.hashtagList !== null ? <li>
+																<div className="input-group">
+															      <input type="text" defaultValue="#" className="form-control" onChange={this.handleInputChange} />
+															      <span className="input-group-btn">
+															        <a onClick={this.addNew} className="btn btn-default">Add</a>
+															      </span>
+															    </div>
+															</li> : null;
 		var checkAllButton = childs.length ? <li><a onClick={this.checkAll} className="btn btn-default">Check all</a></li> : null;
 		return <ul className="hashtag-container">
 					{checkAllButton}
@@ -78,12 +92,30 @@ var ListControl = React.createClass({
 		};
 		return rows;
 	},
-
+	handleInputChange: function(event){
+		this.setState({listNewInput: event.target.value});
+	},
+	addNew: function(){
+		console.log(this.state.listNewInput);
+		if(this.state.listNewInput){
+			var lists = this.props.lists;
+			lists.push({name: this.state.listNewInput, tags: []});
+			this.props.onUpdate();
+		}
+	},
 	render: function() {
 		return (
 			<div>
 				<div className="col-xs-6">
 					<ul className="list-container">
+					<li>
+						<div className="input-group">
+					      <input type="text" className="form-control" onChange={this.handleInputChange} />
+					      <span className="input-group-btn">
+					        <a onClick={this.addNew} className="btn btn-default">Add</a>
+					      </span>
+					    </div>
+					</li> 
 						{this.getList()}
 					</ul>
 				</div>
